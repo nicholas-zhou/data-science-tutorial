@@ -14286,20 +14286,22 @@ a.anchor-link {
 <h2 id="Setup">Setup<a class="anchor-link" href="#Setup">&#182;</a></h2><p>Before we begin, we should to import some packages that will be used for this tutorial.</p>
 <ol>
 <li>Pandas: used to load the data and create the DataFrames</li>
-<li>MatPlotLib: used for plots</li>
+<li>Matplotlib: used for plots</li>
 <li>NumPy: used to plot regression line</li>
+<li>statsmodels: used for linear regression testing</li>
 </ol>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[60]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
 </pre></div>
 
      </div>
@@ -15929,20 +15931,348 @@ Swaziland
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="reminder-to-talk-about-using-seaborn-as-an-alternative">reminder to talk about using seaborn as an alternative<a class="anchor-link" href="#reminder-to-talk-about-using-seaborn-as-an-alternative">&#182;</a></h1>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Hypothesis-Testing">Hypothesis Testing<a class="anchor-link" href="#Hypothesis-Testing">&#182;</a></h2><ul>
-<li>null hypothesis is it is just as likely for people from any country to immigrant regardless of the country's wealth</li>
-</ul>
+<p>An alternative to using Pandas and NumPy to make the scatter plots would be using Seaborn. Plotting a scatter plot on Seaborn automatically plots the regression line for you. We chose Pandas and NumPy because we had more experience with it and we knew how to change the colors on the plots.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Final-Thoughts">Final Thoughts<a class="anchor-link" href="#Final-Thoughts">&#182;</a></h2><p>Possible things to consider: remember, we removed some countries at the start</p>
+<h3 id="Initial-Thoughts-from-Plots">Initial Thoughts from Plots<a class="anchor-link" href="#Initial-Thoughts-from-Plots">&#182;</a></h3><p>In each of the three plots, we can see that that for the regression line, the number of immigrants decreases as the GDP of countries increases. Based off of this, we think there could be a correlation between GDP per capita of a country and the number of immigrants from that country to the US, but we cannot be certain until we perform hypothesis testing.</p>
+<p>Something else to not is there are two clear outliers in Mexico and Qatar. Mexico looks to be a country with low GDP per capita and a lot of immigrants coming to the US, while Qatar has a high GDP per capita with not many immigrants coming to the US.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Hypothesis-Testing">Hypothesis Testing<a class="anchor-link" href="#Hypothesis-Testing">&#182;</a></h2><p>Hypothesis testing is where tests are used to compare a hypothesis to a null hypothesis. A null hypothesis is that there is no significant correlation and it is rejected if its probability is below a standard level (0.05). For our situation, the null hypothesis would be there is no correlation between a country's GDP per capita and the number of immigrants the U.S. gets from it, i.e. people immigrate to the U.S. despiite the economic status of their country of origin. The alternative hypothesis (alternative to the null hypothesis) would be there is a correlation between the GDP per capita of a country and the amount of U.S. immigrants from there, i.e. citizens from less economically developed countries are more likely to immigrate to the U.S.</p>
+<p>To test this we will run linear regression line tests on our data.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="2013">2013<a class="anchor-link" href="#2013">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[62]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># test for 2013</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">immigration_data</span><span class="p">[</span><span class="s1">&#39;gdp_2013&#39;</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">immigration_data</span><span class="p">[[</span><span class="s1">&#39;num_Im_2013&#39;</span><span class="p">]])</span>
+<span class="n">lm</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">missing</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">,</span><span class="n">hasconst</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">lm</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[62]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>        <td>gdp_2013</td>     <th>  R-squared (uncentered):</th>      <td>   0.453</td>
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared (uncentered):</th> <td>   0.446</td>
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th>          <td>   66.98</td>
+</tr>
+<tr>
+  <th>Date:</th>             <td>Mon, 17 May 2021</td> <th>  Prob (F-statistic):</th>          <td>6.31e-22</td>
+</tr>
+<tr>
+  <th>Time:</th>                 <td>14:06:24</td>     <th>  Log-Likelihood:    </th>          <td> -1852.2</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td>   164</td>      <th>  AIC:               </th>          <td>   3708.</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td>   162</td>      <th>  BIC:               </th>          <td>   3715.</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     2</td>      <th>                     </th>              <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>              <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+       <td></td>          <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>const</th>       <td> 1.834e+04</td> <td> 1647.340</td> <td>   11.130</td> <td> 0.000</td> <td> 1.51e+04</td> <td> 2.16e+04</td>
+</tr>
+<tr>
+  <th>num_Im_2013</th> <td>   -0.1290</td> <td>    0.106</td> <td>   -1.222</td> <td> 0.223</td> <td>   -0.338</td> <td>    0.079</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td>129.622</td> <th>  Durbin-Watson:     </th> <td>   1.862</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.000</td>  <th>  Jarque-Bera (JB):  </th> <td>1528.948</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td> 2.825</td>  <th>  Prob(JB):          </th> <td>    0.00</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td>16.850</td>  <th>  Cond. No.          </th> <td>1.68e+04</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] R² is computed without centering (uncentered) since the model does not contain a constant.<br/>[2] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br/>[3] The condition number is large, 1.68e+04. This might indicate that there are<br/>strong multicollinearity or other numerical problems.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="2014">2014<a class="anchor-link" href="#2014">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[63]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># test for 2014</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">immigration_data</span><span class="p">[</span><span class="s1">&#39;gdp_2014&#39;</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">immigration_data</span><span class="p">[[</span><span class="s1">&#39;num_Im_2014&#39;</span><span class="p">]])</span>
+<span class="n">lm</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">missing</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">,</span><span class="n">hasconst</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">lm</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[63]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>        <td>gdp_2014</td>     <th>  R-squared (uncentered):</th>      <td>   0.456</td>
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared (uncentered):</th> <td>   0.449</td>
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th>          <td>   67.95</td>
+</tr>
+<tr>
+  <th>Date:</th>             <td>Mon, 17 May 2021</td> <th>  Prob (F-statistic):</th>          <td>3.73e-22</td>
+</tr>
+<tr>
+  <th>Time:</th>                 <td>14:10:37</td>     <th>  Log-Likelihood:    </th>          <td> -1853.5</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td>   164</td>      <th>  AIC:               </th>          <td>   3711.</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td>   162</td>      <th>  BIC:               </th>          <td>   3717.</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     2</td>      <th>                     </th>              <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>              <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+       <td></td>          <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>const</th>       <td> 1.864e+04</td> <td> 1658.610</td> <td>   11.238</td> <td> 0.000</td> <td> 1.54e+04</td> <td> 2.19e+04</td>
+</tr>
+<tr>
+  <th>num_Im_2014</th> <td>   -0.1350</td> <td>    0.103</td> <td>   -1.314</td> <td> 0.191</td> <td>   -0.338</td> <td>    0.068</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td>128.344</td> <th>  Durbin-Watson:     </th> <td>   1.863</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.000</td>  <th>  Jarque-Bera (JB):  </th> <td>1483.314</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td> 2.794</td>  <th>  Prob(JB):          </th> <td>    0.00</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td>16.633</td>  <th>  Cond. No.          </th> <td>1.74e+04</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] R² is computed without centering (uncentered) since the model does not contain a constant.<br/>[2] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br/>[3] The condition number is large, 1.74e+04. This might indicate that there are<br/>strong multicollinearity or other numerical problems.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="2015">2015<a class="anchor-link" href="#2015">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[64]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># test for 2015</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">immigration_data</span><span class="p">[</span><span class="s1">&#39;gdp_2015&#39;</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">immigration_data</span><span class="p">[[</span><span class="s1">&#39;num_Im_2015&#39;</span><span class="p">]])</span>
+<span class="n">lm</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">missing</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">,</span><span class="n">hasconst</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">lm</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[64]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>        <td>gdp_2015</td>     <th>  R-squared (uncentered):</th>      <td>   0.457</td>
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared (uncentered):</th> <td>   0.451</td>
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th>          <td>   68.27</td>
+</tr>
+<tr>
+  <th>Date:</th>             <td>Mon, 17 May 2021</td> <th>  Prob (F-statistic):</th>          <td>3.13e-22</td>
+</tr>
+<tr>
+  <th>Time:</th>                 <td>14:11:01</td>     <th>  Log-Likelihood:    </th>          <td> -1854.8</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td>   164</td>      <th>  AIC:               </th>          <td>   3714.</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td>   162</td>      <th>  BIC:               </th>          <td>   3720.</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     2</td>      <th>                     </th>              <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>              <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+       <td></td>          <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>const</th>       <td> 1.876e+04</td> <td> 1661.768</td> <td>   11.287</td> <td> 0.000</td> <td> 1.55e+04</td> <td>  2.2e+04</td>
+</tr>
+<tr>
+  <th>num_Im_2015</th> <td>   -0.1154</td> <td>    0.095</td> <td>   -1.210</td> <td> 0.228</td> <td>   -0.304</td> <td>    0.073</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td>127.589</td> <th>  Durbin-Watson:     </th> <td>   1.865</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.000</td>  <th>  Jarque-Bera (JB):  </th> <td>1455.641</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td> 2.776</td>  <th>  Prob(JB):          </th> <td>    0.00</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td>16.498</td>  <th>  Cond. No.          </th> <td>1.87e+04</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] R² is computed without centering (uncentered) since the model does not contain a constant.<br/>[2] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br/>[3] The condition number is large, 1.87e+04. This might indicate that there are<br/>strong multicollinearity or other numerical problems.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The result of all of our linear regression line tests gives p-values all greater than the standard alpha of 0.05, meaning that we are unable to reject the null hypothesis. Given these results, we can infer that economic opprotunity in an immigrants person of origin does not influence their decision to immigrate to the U.S. as much as previously expected.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Final-Thoughts">Final Thoughts<a class="anchor-link" href="#Final-Thoughts">&#182;</a></h2>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Recap">Recap<a class="anchor-link" href="#Recap">&#182;</a></h3><p>From this tutorial, we wanted to learn about whether there is a correlation between the wealth of certain countries and the number of immigrants the United States receive from those countries. We began by collecting data from a couple different sources and organizing the data in a structure that would be easy to manipute. Then, we plotted the data and performed some hypothesis testing to see whether or not there is a correlation between GDP per capita and number of immigrants to the US. Let's try to put this all together now.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h3><p>When first started this project, we wanted to see if economic opportunity was a major influence for immigration to the United States. We decided to do this by collecting data on the national origins of immigrants to the United States and the GDP per capita and running a linear regression test to see if there was a significant correlation between the two. We also decided to use several years so that way we would have multiple samples and don't base our conclusion on just one year of data.</p>
+<p>When we plotted the data and fit a linear regression line, we saw that there was some negative correlation between the two fields. However, when we ran the significance test we saw that there was no significant correlation between GDP per capita and the amount of immigrants the U.S. gets from each country.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Things-to-Consider">Things to Consider<a class="anchor-link" href="#Things-to-Consider">&#182;</a></h3><p>If you can remember, we removed some countries from the data sets at the beginning. We did this because the two sets did not have the same countries, and it was really difficult finding sets with similar ways of organizing their data. Something to consider is there is a chance those countries could reveal something we did not account for, or at the very least, just provide more data to work with. We could have also included a bigger range of years, which could provide more context to what was happening around the world in terms of immigration during certain periods.</p>
 
 </div>
 </div>
@@ -15956,27 +16286,17 @@ Swaziland
 <li>For more information on immigrants around the world, visit <a href="https://www.weforum.org/agenda/2019/03/which-countries-have-the-most-immigrants-51048ff1f9/">this article</a></li>
 <li><a href="https://www.un.org/en/development/desa/population/migration/data/index.asp">The UN</a> is also a great place to find immigration data</li>
 </ul>
-<p><strong>Other possible factors</strong></p>
+<p><strong>More Data</strong><br></p>
+<ul>
+<li>GDP data from <a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?end=2019&amp;start=1960&amp;view=chart">World Bank</a></li>
+</ul>
+<p><strong>Other possible factors to test with immigration rates</strong></p>
 <ul>
 <li>Human development index data</li>
 <li>Happiness index</li>
 </ul>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div>
 </body>
 
