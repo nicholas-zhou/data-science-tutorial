@@ -14259,13 +14259,18 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Fill-in-Title">Fill in Title<a class="anchor-link" href="#Fill-in-Title">&#182;</a></h1>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Tutorial by Alex Heng and Nicholas Zhou</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Questions-for-Alex">Questions for Alex<a class="anchor-link" href="#Questions-for-Alex">&#182;</a></h1><ul>
+<h2 id="Questions-for-Alex">Questions for Alex<a class="anchor-link" href="#Questions-for-Alex">&#182;</a></h2><ul>
 <li>Where the fuck did you find the GDP data? We need to tell people in the tutorial</li>
 <li>Should we talk about how the removed countries are irrelevant?</li>
 <li>What should we say D is?</li>
@@ -14277,20 +14282,20 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h1><p>This is a tutorial that walks through the steps of the data lifecycle: data collection, data processing, exploratory analysis &amp; data visualization, hypothesis testing &amp; machine learning, and insight &amp; policy decision. In data science, it is very important to understand data, process it, extract value from it, visualize it, and communicate it. Hopefully by the end of the tutorial, you walk away with a full understanding of the lifecycle and how to apply it!</p>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>This is a tutorial that walks through the steps of the data lifecycle: data collection, data processing, exploratory analysis &amp; data visualization, hypothesis testing &amp; machine learning, and insight &amp; policy decision. In data science, it is very important to understand data, process it, extract value from it, visualize it, and communicate it. Hopefully by the end of the tutorial, you walk away with a full understanding of the lifecycle and how to apply it!</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Context">Context<a class="anchor-link" href="#Context">&#182;</a></h1><p>There are people who try to argue that the United States has more immigrants originating from wealthier countries rather than poorer countries. We wanted to test whether or not this is true using the different steps of the data lifecycle. Looking at the GDP per capita between 2013 and 2015 for different countries, as well as their immigration rates (to the United States), we can test the validity of this argument.</p>
+<h2 id="Context">Context<a class="anchor-link" href="#Context">&#182;</a></h2><p>There are people who try to argue that the United States has more immigrants originating from wealthier countries rather than poorer countries. We wanted to test whether or not this is true using the different steps of the data lifecycle. Looking at the GDP per capita between 2013 and 2015 for different countries, as well as their immigration rates (to the United States), we can test the validity of this argument.</p>
 <p><strong>significance?</strong></p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Setup">Setup<a class="anchor-link" href="#Setup">&#182;</a></h1><p>Before we begin, we should to import some packages that will be used for this tutorial.</p>
+<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">&#182;</a></h2><p>Before we begin, we should to import some packages that will be used for this tutorial.</p>
 <ol>
 <li>Pandas: used to load the data and create the DataFrames</li>
 <li>MatPlotLib: used for plots</li>
@@ -14315,7 +14320,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Data-Collection">Data Collection<a class="anchor-link" href="#Data-Collection">&#182;</a></h1>
+<h2 id="Data-Collection">Data Collection<a class="anchor-link" href="#Data-Collection">&#182;</a></h2>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
@@ -14638,7 +14643,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Data-Tidying">Data Tidying<a class="anchor-link" href="#Data-Tidying">&#182;</a></h1>
+<h2 id="Data-Tidying">Data Tidying<a class="anchor-link" href="#Data-Tidying">&#182;</a></h2>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
@@ -14691,7 +14696,7 @@ Unique regions in immigration data: 216
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Consistent-Countries">Consistent Countries<a class="anchor-link" href="#Consistent-Countries">&#182;</a></h2><p>As you can see, the two DataFrames don't even contain the same number of unique entries. Because of this, we did all the work and found all the countries we should remove from each DataFrame. Let's start with the GDP per capita set. Below are the entries from the 'Entity' column that we want to remove from the GDP per capita set.</p>
+<h3 id="Consistent-Countries">Consistent Countries<a class="anchor-link" href="#Consistent-Countries">&#182;</a></h3><p>As you can see, the two DataFrames don't even contain the same number of unique entries. Because of this, we did all the work and found all the countries we should remove from each DataFrame. Let's start with the GDP per capita set. Below are the entries from the 'Entity' column that we want to remove from the GDP per capita set.</p>
 <p><strong>Regions</strong><br></p>
 <ul>
 <li>East Asia</li>
@@ -15041,7 +15046,7 @@ Unique regions in immigration data: 164
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Consistent-Names">Consistent Names<a class="anchor-link" href="#Consistent-Names">&#182;</a></h2><p>In addition to not including all the same countries, there were also a few countries that had different names in the two datasets. We will have to standardize those.</p>
+<h3 id="Consistent-Names">Consistent Names<a class="anchor-link" href="#Consistent-Names">&#182;</a></h3><p>In addition to not including all the same countries, there were also a few countries that had different names in the two datasets. We will have to standardize those.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -15166,7 +15171,7 @@ Swaziland
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Merging-DataFrames">Merging DataFrames<a class="anchor-link" href="#Merging-DataFrames">&#182;</a></h2><p>Now we can finally merge the GDP per capita DataFrame into the immigration DataFrame. To do this, we create three new columns in our immigration DataFrame (one for each year). The columns will consist of the GDP per capita for that row's country according to the GDP per capita DataFrame.</p>
+<h3 id="Merging-DataFrames">Merging DataFrames<a class="anchor-link" href="#Merging-DataFrames">&#182;</a></h3><p>Now we can finally merge the GDP per capita DataFrame into the immigration DataFrame. To do this, we create three new columns in our immigration DataFrame (one for each year). The columns will consist of the GDP per capita for that row's country according to the GDP per capita DataFrame.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -15359,7 +15364,7 @@ Swaziland
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Missing-Data">Missing Data<a class="anchor-link" href="#Missing-Data">&#182;</a></h2><p>We noticed that for the 2013 column, Comoros had an immigration rate of "D". <strong>what the fuck is it?</strong> Since we want to be able to convert the values to integers, we will have to address this one value. There are a couple options: remove the row or encode the missing data. We decided it would be best to encode the data and change it to 0. This is because Comoros has data for 2014 and 2015, so we do not want to remove it entirely. Additionally, its immigration numbers for 2014 and 2015 are pretty low, so it could factor into how few people immigration from this country.</p>
+<h3 id="Missing-Data">Missing Data<a class="anchor-link" href="#Missing-Data">&#182;</a></h3><p>We noticed that for the 2013 column, Comoros had an immigration rate of "D". <strong>what the fuck is it?</strong> Since we want to be able to convert the values to integers, we will have to address this one value. There are a couple options: remove the row or encode the missing data. We decided it would be best to encode the data and change it to 0. This is because Comoros has data for 2014 and 2015, so we do not want to remove it entirely. Additionally, its immigration numbers for 2014 and 2015 are pretty low, so it could factor into how few people immigration from this country.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -15388,7 +15393,7 @@ Swaziland
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Getting-Accurate-Names">Getting Accurate Names<a class="anchor-link" href="#Getting-Accurate-Names">&#182;</a></h2><p>Now that we have columns for GDP per capita and immigration rates, we want to specify the names of the 2013, 2014, and 2015 columns to avoid confusion. Pandas makes it easy to rename your columns, either with the columns function or rename function. We chose to use columns, simply because it does not require any mapping of values. The new names will be num<em>Im</em><em>year</em>.</p>
+<h3 id="Getting-Accurate-Names">Getting Accurate Names<a class="anchor-link" href="#Getting-Accurate-Names">&#182;</a></h3><p>Now that we have columns for GDP per capita and immigration rates, we want to specify the names of the 2013, 2014, and 2015 columns to avoid confusion. Pandas makes it easy to rename your columns, either with the columns function or rename function. We chose to use columns, simply because it does not require any mapping of values. The new names will be num<em>Im</em><em>year</em>.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -15575,7 +15580,7 @@ Swaziland
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Abbreviations">Abbreviations<a class="anchor-link" href="#Abbreviations">&#182;</a></h2><p>The last thing we want to do before we begin EDA and Data Visualization is create a new column for the abbreviations of the countries. This will be useful later when we begin labeling our plots.</p>
+<h3 id="Abbreviations">Abbreviations<a class="anchor-link" href="#Abbreviations">&#182;</a></h3><p>The last thing we want to do before we begin EDA and Data Visualization is create a new column for the abbreviations of the countries. This will be useful later when we begin labeling our plots.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -15780,7 +15785,7 @@ Swaziland
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Exploratory-Data-Analysis-and-Data-Visualization">Exploratory Data Analysis and Data Visualization<a class="anchor-link" href="#Exploratory-Data-Analysis-and-Data-Visualization">&#182;</a></h1>
+<h2 id="Exploratory-Data-Analysis-and-Data-Visualization">Exploratory Data Analysis and Data Visualization<a class="anchor-link" href="#Exploratory-Data-Analysis-and-Data-Visualization">&#182;</a></h2>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
@@ -15884,7 +15889,7 @@ Swaziland
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Hypothesis-Testing">Hypothesis Testing<a class="anchor-link" href="#Hypothesis-Testing">&#182;</a></h1><ul>
+<h2 id="Hypothesis-Testing">Hypothesis Testing<a class="anchor-link" href="#Hypothesis-Testing">&#182;</a></h2><ul>
 <li>null hypothesis is it is just as likely for people from any country to immigrant regardless of the country's wealth</li>
 </ul>
 
@@ -15892,13 +15897,13 @@ Swaziland
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Final-Thoughts">Final Thoughts<a class="anchor-link" href="#Final-Thoughts">&#182;</a></h1><p>Possible things to consider: remember, we removed some countries at the start</p>
+<h2 id="Final-Thoughts">Final Thoughts<a class="anchor-link" href="#Final-Thoughts">&#182;</a></h2><p>Possible things to consider: remember, we removed some countries at the start</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Additional-Resources">Additional Resources<a class="anchor-link" href="#Additional-Resources">&#182;</a></h1><p>Of course, this tutorial is only meant to serve as a launching pad. If you would like to learn more, please check out the following links!</p>
+<h2 id="Additional-Resources">Additional Resources<a class="anchor-link" href="#Additional-Resources">&#182;</a></h2><p>Of course, this tutorial is only meant to serve as a launching pad. If you would like to learn more, please check out the following links!</p>
 <p><strong>Articles</strong></p>
 <p><strong>Information on immigration rates</strong></p>
 <p><strong>Other possible factors</strong></p>
